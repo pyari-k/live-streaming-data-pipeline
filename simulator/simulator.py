@@ -90,7 +90,8 @@ def main():
             else:
                 progress_existing_orders(conn)
                 
-            time.sleep(random.uniform(1.5, 3.5))
+            # Wait 180 seconds (3 minutes) between events for calm, observable learning
+            time.sleep(180)
         except Exception as e:
             print(f"Error in simulation loop: {e}")
             conn = get_connection()

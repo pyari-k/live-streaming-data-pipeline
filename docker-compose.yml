@@ -100,3 +100,19 @@ services:
       POSTGRES_DB: qcommerce_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: qcommerce_kafka_ui
+    restart: always
+    depends_on:
+      - kafka
+    ports:
+      - "8080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: quick-commerce-cluster
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: debezium-postgres-connect
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://debezium:8083
+
