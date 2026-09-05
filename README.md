@@ -1,6 +1,20 @@
 # Quick Commerce Real-Time Streaming Data Pipeline
 
-A beginner-friendly project demonstrating how modern real-time streaming architectures work, moving from **OLTP $\rightarrow$ CDC $\rightarrow$ Kafka $\rightarrow$ OLAP $\rightarrow$ Dashboard**.
+A production-grade, end-to-end real-time streaming data pipeline demonstrating how high-velocity platforms move data from **OLTP $\rightarrow$ CDC $\rightarrow$ Kafka $\rightarrow$ OLAP $\rightarrow$ Live Dashboard** in sub-seconds.
+
+![Real-Time Analytics Dashboard](grafana_dashboard.gif)
+
+---
+
+## 🎯 What We Are Achieving
+
+In high-velocity **Quick Commerce** (10-minute grocery delivery services like Zepto, Blinkit, or Instacart), operational decisions cannot wait for hourly or nightly batch ETL:
+* **The Challenge**: Traditional batch pipelines introduce hours of delay. When order volumes suddenly spike, delivery SLAs are breached, or riders get stuck, business operators find out far too late.
+* **The Architecture Solution**: An event-driven, sub-second streaming architecture:
+  1. **Zero-Lag Event Capture**: Listens to PostgreSQL's Write-Ahead Log (WAL) via **Debezium CDC**, capturing every status transition the exact millisecond it commits without impacting OLTP database performance.
+  2. **High-Throughput Message Streaming**: Buffers and distributes ordered event streams through **Apache Kafka**.
+  3. **Real-Time Columnar OLAP**: ClickHouse continuously ingests the stream via its native Kafka Engine with a **Dual-Layer architecture** (immutable audit log + deduplicated live state).
+  4. **Live Operational Dashboard**: Auto-refreshing **Grafana** dashboard monitoring live order throughput, status lifecycles, and gross revenue in real time.
 
 ---
 
@@ -91,6 +105,8 @@ Follow the data step-by-step from left to right:
   4. Click **Kafka Connect** in the sidebar to visually inspect Debezium.
   5. Click **Consumers** to see ClickHouse actively reading with `0` lag.
 
+![Kafka UI Live Messages Stream](kafka_stream.gif)
+
 ---
 
 ### Step 5: ClickHouse (OLAP Data Warehouse)
@@ -123,6 +139,8 @@ Follow the data step-by-step from left to right:
   * 💰 **Gross Order Revenue**
   * 📊 **Orders by Status Breakdown** (`PLACED`, `PACKED`, `DISPATCHED`, `DELIVERED`)
   * 📈 **Incoming Order Stream (Amount over Time)**
+
+![Grafana Real-Time Dashboard](grafana_dashboard.gif)
 
 ---
 
