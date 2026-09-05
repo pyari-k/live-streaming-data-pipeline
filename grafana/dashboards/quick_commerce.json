@@ -55,7 +55,7 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "ClickHouse"
           },
-          "format": "TABLE",
+          "format": 0,
           "queryType": "sql",
           "rawSql": "SELECT count() as total_orders FROM qcommerce.v_latest_orders",
           "refId": "A"
@@ -114,7 +114,7 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "ClickHouse"
           },
-          "format": "TABLE",
+          "format": 0,
           "queryType": "sql",
           "rawSql": "SELECT round(sum(total_amount), 2) as total_revenue FROM qcommerce.v_latest_orders",
           "refId": "A"
@@ -174,7 +174,7 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "ClickHouse"
           },
-          "format": "TABLE",
+          "format": 0,
           "queryType": "sql",
           "rawSql": "SELECT order_status, count() as total FROM qcommerce.v_latest_orders GROUP BY order_status",
           "refId": "A"
@@ -264,9 +264,9 @@
             "type": "grafana-clickhouse-datasource",
             "uid": "ClickHouse"
           },
-          "format": "TIME_SERIES",
+          "format": 0,
           "queryType": "sql",
-          "rawSql": "SELECT cdc_timestamp as time, total_amount FROM qcommerce.orders_realtime WHERE op = 'c' ORDER BY time ASC",
+          "rawSql": "SELECT cdc_timestamp as time, total_amount FROM qcommerce.order_events WHERE op = 'c' ORDER BY time ASC",
           "refId": "A"
         }
       ],
@@ -279,12 +279,12 @@
   "style": "dark",
   "tags": ["realtime", "quick-commerce", "clickhouse"],
   "time": {
-    "from": "now-15m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "Quick Commerce Streaming Analytics",
   "uid": "quick-commerce-dashboard",
-  "version": 1
+  "version": 2
 }
